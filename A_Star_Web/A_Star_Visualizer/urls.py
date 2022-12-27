@@ -1,7 +1,8 @@
 from django.urls import path, include
+from django.contrib import admin
 from . import views
 
+admin.autodiscover()
 urlpatterns = [
-    path('A_Star_Visualizer/', include('A_Star_Visualizer.urls')),
     path('admin/', admin.site.urls),
 ]
