@@ -10,7 +10,7 @@ RUN apt-get update \
 
 # Downloads all our Django dependancies 
 COPY requirements.txt /tmp/pip-tmp/
-RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
+RUN pip --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
     && rm -rf /tmp/pip-tmp
 
 # [Optional] Uncomment this section to install additional OS packages.
