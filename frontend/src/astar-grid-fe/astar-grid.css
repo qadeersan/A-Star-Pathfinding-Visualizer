@@ -1,8 +1,18 @@
 table {
-    width: 90%;
-    height: 90%;
-  }
-  td {
-    width: 1%;
-    height: 1%;
-  }
+  border-collapse: collapse;
+}
+
+.grid-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 2s ease-out, height 2s ease-out;
+}
+
+.grid-element {
+
+  box-sizing: border-box;
+  border: .3px solid rgb(128, 32, 125);
+  transition: width 2s ease-in-out, height 2s ease-in-out;
+}
