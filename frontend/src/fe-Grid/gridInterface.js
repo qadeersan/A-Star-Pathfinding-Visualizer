@@ -42,22 +42,34 @@ const GridInterface = (props) => {
         switch (currentState) {
             case "barrier":
                 newColor = "black";
+                barriers.push([i, j]);
                 break;
             case "start":
+                if (start) {
+                    // change the color of the previous start point back to 'violet'
+                    const newGrid = [...grid];
+                    newGrid[start[0]][start[1]] = 'violet';
+                    setGrid(newGrid);
+                }
                 newColor = "green";
-                start = (i,j);
+                start = [i, j];
                 break;
             case "end":
+                if (end) {
+                    // change the color of the previous end point back to 'violet'
+                    const newGrid = [...grid];
+                    newGrid[end[0]][end[1]] = 'violet';
+                    setGrid(newGrid);
+                }
                 newColor = "red";
-                end = (i,j)
+                end = [i, j];
                 break;
             default:
                 newColor = "violet";
         }
-
+    
         const newGrid = [...grid];
         newGrid[i][j] = newColor;
-
         setGrid(newGrid);
     }
 
