@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import './astar-grid.css'
+import GridButtons from './gridButtons';
+import './gridInterface.css'
 
-const GridInterface = () => {
+const GridInterface = (props) => {
+    let start = null;
+    let end = null;
+    let barriers = [];
+
     const [grid, setGrid] = useState(Array(100).fill().map(() => Array(100).fill('violet')));
     const [isMouseDown, setIsMouseDown] = useState(false);
     const [elementWidth, setElementWidth] = useState(3);
     const [currentState, setCurrentState] = useState("barrier"); //new state variable to keep track of the current state
+
+    const handleStateChange = (newState) => {
+        setCurrentState(newState);
+        console.log(newState);
+    }
 
     useEffect(() => {
         const handleResize = () => {
@@ -35,36 +45,28 @@ const GridInterface = () => {
                 break;
             case "start":
                 newColor = "green";
+                start = (i,j);
                 break;
             case "end":
                 newColor = "red";
+                end = (i,j)
                 break;
             default:
                 newColor = "violet";
         }
 
-        let newGrid = [...grid];
+        const newGrid = [...grid];
+        newGrid[i][j] = newColor;
 
-        if (currentState === "clear") {
-            newGrid = [grid]
-            setGrid(newGrid)
-        } else {
-            newGrid[i][j] = newColor;
-            setGrid(newGrid);
-        }
+        setGrid(newGrid);
     }
 
-    const handleStateChange = (newState) => {
-        setCurrentState(newState);
-    }
+
 
     return (
         <span className='grid-component'>
         <div className="grid-container">
-            <button onClick={() => handleStateChange("barrier")}>Barrier</button>
-            <button onClick={() => handleStateChange("start")}>Start Point</button>
-            <button onClick={() => handleStateChange("end")}>End Point</button>
-            <button onClick={() => handleStateChange("clear")}>Clear</button>
+            <GridButtons setCurrentState={setCurrentState} setGrid={setGrid} handleStateChange={handleStateChange}/>
             <table>
                 <tbody>
                 {grid.map((row, i) => (
@@ -75,22 +77,21 @@ const GridInterface = () => {
                             style={{ 
                                 width: elementWidth,
                                 height: elementWidth,
-                                backgroundColor: grid[i][j]
-                                }} 
-                                onMouseDown={() => handleMouseDown(i, j)}
-                                onMouseUp={handleMouseUp}
-                                onMouseEnter={() => handleClick(i, j)}
-                                >
-                                </td>
-                            ))}
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-            </div>
-            </span>
-        );
-    }
-    
-    export default GridInterface;
-    
+                                backgroundColor: grid[i][j] 
+                            }} 
+                            onMouseDown={() => handleMouseDown(i, j)}
+                            onMouseUp={handleMouseUp}
+                            onMouseEnter={() => handleClick(i, j)}
+                            >
+                            </td>
+                        ))}
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+        </div>
+        </span>
+    );
+}
+
+export default GridInterface;

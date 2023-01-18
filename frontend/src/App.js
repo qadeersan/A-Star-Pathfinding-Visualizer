@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import GridInterface from './astar-grid-fe/astar-grid';
+import GridInterface from './fe-Grid/gridInterface';
 
 function App() {
   return (
