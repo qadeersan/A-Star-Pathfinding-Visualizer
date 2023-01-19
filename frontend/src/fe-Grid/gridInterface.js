@@ -22,22 +22,6 @@ const GridInterface = (props) => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // useEffect(() => {
-    //     let newGrid = [...grid];
-    //     if (start) {
-    //         newGrid[start[0]][start[1]] = "green";
-    //     }
-    //     if (end) {
-    //         newGrid[end[0]][end[1]] = "red";
-    //     }
-    //     if (barriers) {
-    //         for (let i = 0; i < barriers.length; i++) {
-    //             newGrid[barriers[i][0]][barriers[i][1]] = "black";
-    //         }
-    //     }
-    //     setGrid(newGrid);
-    // }, [grid, start, end]);
-
     const handleMouseDown = (i, j) => {
         setIsMouseDown(true);
         updateGridOnClick(i, j);
@@ -66,31 +50,11 @@ const GridInterface = (props) => {
                 setBarriers([...barriers, [i, j]]);
                 newColor = "black";
         }
-    
+
         const newGrid = [...grid];
         newGrid[i][j] = newColor;
         setGrid(newGrid);
     }
-    
-    
-    const handleMouseUp = () => {
-        console.log("MOUSE UP");
-        setIsMouseDown(false);
-    };
-    
-    // const handleClick = (i, j) => {
-    //     console.log(isMouseDown);
-    //     // if (!isMouseDown) return;
-    //     console.log("barriersss");
-    //     setBarriers([...barriers, [i, j]]);
-    //     const newGrid = [...grid];
-    //     newGrid[i][j] = "black";
-    //     setGrid(newGrid);
-        
-    // };
-      
-
-
 
     return (
         <span className='grid-component'>
@@ -110,7 +74,6 @@ const GridInterface = (props) => {
                             }} 
                             onMouseDown={() => handleMouseDown(i, j)}
                             onMouseMove={() => handleMouseMove(i, j)}
-                            onMouseUp={handleMouseUp}
                             >
                             </td>
                         ))}
