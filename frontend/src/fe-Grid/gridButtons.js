@@ -1,21 +1,19 @@
 const GridButtons = (props) => {
-    const { setEnd, setStart, setBarriers, handleStateChange, setGrid, setCurrentState } = props;
+    const { setEnd, setStart, setBarriers, setGrid, setClick } = props;
 
 
-    const handleClear = () => {
-        setGrid(Array(100).fill().map(() => Array(100).fill('violet')));
+    const handleReset = () => {
         setStart(null);
         setEnd(null);
         setBarriers([]);
-        setCurrentState("barrier");
-    }
+        setGrid(Array(100).fill().map(() => Array(100).fill('violet')));
+        setClick(1);
+      }
+      
 
     return (
         <div>
-            <button onClick={() => handleStateChange("barrier")}>Barrier</button>
-            <button onClick={() => handleStateChange("start")}>Start Point</button>
-            <button onClick={() => handleStateChange("end")}>End Point</button>
-            <button onClick={handleClear}>Clear</button>
+            <button onClick={handleReset}>Reset</button>
         </div>
     );
 }

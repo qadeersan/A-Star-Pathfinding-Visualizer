@@ -5,17 +5,12 @@ import './gridInterface.css'
 const GridInterface = (props) => {
     const [start, setStart] = useState(null);
     const [end, setEnd] = useState(null);
+    const [click, setClick] = useState(1);
 
+    const [isMouseDown, setIsMouseDown] = useState(false);
     const [barriers, setBarriers] = useState([]);
     const [grid, setGrid] = useState(Array(100).fill().map(() => Array(100).fill('violet')));
-    const [isMouseDown, setIsMouseDown] = useState(false);
     const [elementWidth, setElementWidth] = useState(3);
-    const [currentState, setCurrentState] = useState("barrier"); //new state variable to keep track of the current state
-
-    const handleStateChange = (newState) => {
-        setCurrentState(newState);
-        console.log(newState);
-    }
 
     useEffect(() => {
         const handleResize = () => {
@@ -27,60 +22,80 @@ const GridInterface = (props) => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
+    // useEffect(() => {
+    //     let newGrid = [...grid];
+    //     if (start) {
+    //         newGrid[start[0]][start[1]] = "green";
+    //     }
+    //     if (end) {
+    //         newGrid[end[0]][end[1]] = "red";
+    //     }
+    //     if (barriers) {
+    //         for (let i = 0; i < barriers.length; i++) {
+    //             newGrid[barriers[i][0]][barriers[i][1]] = "black";
+    //         }
+    //     }
+    //     setGrid(newGrid);
+    // }, [grid, start, end]);
+
     const handleMouseDown = (i, j) => {
         setIsMouseDown(true);
-        handleClick(i, j);
-    };
-
-    const handleMouseUp = () => {
-        setIsMouseDown(false);
-        const newGrid = [...grid];
-
-        for (let i = 0; i < grid.length; i++) {
-            for (let j = 0; j < grid[i].length; j++) {
-                if (start !== null && grid[i][j] === "green" && (i !== start[0] || j !== start[1])) {
-                    newGrid[i][j] = "violet";
-                } else if (end !== null && grid[i][j] === "red" && (i !== end[0] || j !== end[1])) {
-                    newGrid[i][j] = "violet";
-                } 
-            }
-        }
-        setGrid(newGrid);
+        updateGridOnClick(i, j);
     };
     
-
-    const handleClick = (i, j) => {
-        if (!isMouseDown) return;
+    const handleMouseMove = (i, j) => {
+        if (isMouseDown && click > 2) {
+            updateGridOnClick(i, j);
+        }
+    }
+    
+    const updateGridOnClick = (i, j) => {
         let newColor;
-        switch (currentState) {
-            case "barrier":
-                newColor = "black";
-                setBarriers([...barriers, [i, j]]);
-                break;
-            case "start":
+        switch (click) {
+            case 1: 
+                setStart([i,j]);
+                setClick(click + 1);
                 newColor = "green";
-                setStart([i,j])
                 break;
-            case "end":
+            case 2:
+                setEnd([i,j])
+                setClick(click + 1);
                 newColor = "red";
-                setEnd([i,j]);
                 break;
             default:
-                newColor = "violet";
+                setBarriers([...barriers, [i, j]]);
+                newColor = "black";
         }
-
+    
         const newGrid = [...grid];
         newGrid[i][j] = newColor;
-
         setGrid(newGrid);
     }
+    
+    
+    const handleMouseUp = () => {
+        console.log("MOUSE UP");
+        setIsMouseDown(false);
+    };
+    
+    // const handleClick = (i, j) => {
+    //     console.log(isMouseDown);
+    //     // if (!isMouseDown) return;
+    //     console.log("barriersss");
+    //     setBarriers([...barriers, [i, j]]);
+    //     const newGrid = [...grid];
+    //     newGrid[i][j] = "black";
+    //     setGrid(newGrid);
+        
+    // };
+      
 
 
 
     return (
         <span className='grid-component'>
         <div className="grid-container">
-            <GridButtons setStart={setStart} setEnd={setEnd} setBarriers={setBarriers} setCurrentState={setCurrentState} setGrid={setGrid} handleStateChange={handleStateChange}/>
+            <GridButtons setStart={setStart} setEnd={setEnd} setBarriers={setBarriers} setClick={setClick} setGrid={setGrid} />
             <table>
                 <tbody>
                 {grid.map((row, i) => (
@@ -94,8 +109,8 @@ const GridInterface = (props) => {
                                 backgroundColor: grid[i][j] 
                             }} 
                             onMouseDown={() => handleMouseDown(i, j)}
+                            onMouseMove={() => handleMouseMove(i, j)}
                             onMouseUp={handleMouseUp}
-                            onMouseEnter={() => handleClick(i, j)}
                             >
                             </td>
                         ))}
