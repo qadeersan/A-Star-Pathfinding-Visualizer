@@ -56,6 +56,18 @@ const GridInterface = (props) => {
         setGrid(newGrid);
     }
 
+    const handleSubmit = async() => {
+        const data = {start: start, end: end, barriers: barriers};
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        };
+        const response = await fetch('/path/to/your/endpoint', options);
+        const json = await response.json();
+        console.log(json);
+    }
+
     return (
         <span className='grid-component'>
         <div className="grid-container">
