@@ -27,6 +27,10 @@ const GridInterface = (props) => {
         updateGridOnClick(i, j);
     };
     
+    const handleMouseUo = () => {
+        setIsMouseDown(false);
+    }
+
     const handleMouseMove = (i, j) => {
         if (isMouseDown && click > 2) {
             updateGridOnClick(i, j);
@@ -86,6 +90,7 @@ const GridInterface = (props) => {
                             }} 
                             onMouseDown={() => handleMouseDown(i, j)}
                             onMouseMove={() => handleMouseMove(i, j)}
+                            onMouseUp={() => handleMouseUo()}
                             >
                             </td>
                         ))}
