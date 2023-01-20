@@ -32,7 +32,7 @@ const GridInterface = (props) => {
     }
 
     const handleMouseMove = (i, j) => {
-        if (isMouseDown && click > 2) {
+        if (isMouseDown && click > 3) {
             updateGridOnClick(i, j);
         }
     }
@@ -42,12 +42,10 @@ const GridInterface = (props) => {
         switch (click) {
             case 1: 
                 setStart([i,j]);
-                setClick(click + 1);
                 newColor = "green";
                 break;
             case 2:
                 setEnd([i,j])
-                setClick(click + 1);
                 newColor = "red";
                 break;
             default:
@@ -58,6 +56,8 @@ const GridInterface = (props) => {
         const newGrid = [...grid];
         newGrid[i][j] = newColor;
         setGrid(newGrid);
+        setClick(click + 1);
+
     }
 
     const handleSubmit = async() => {
