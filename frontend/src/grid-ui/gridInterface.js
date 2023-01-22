@@ -14,7 +14,7 @@ const GridInterface = (props) => {
 
     useEffect(() => {
         const handleResize = () => {
-            setElementWidth(Math.floor(window.innerHeight / 120));
+            setElementWidth(Math.floor(window.innerHeight / 100));
         };
         handleResize();
         window.addEventListener("resize", handleResize);
@@ -57,7 +57,6 @@ const GridInterface = (props) => {
         newGrid[i][j] = newColor;
         setGrid(newGrid);
         setClick(click + 1);
-
     }
 
     const handleSubmit = async() => {

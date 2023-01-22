@@ -1,7 +1,6 @@
 const GridButtons = (props) => {
     const { setEnd, setStart, setBarriers, setGrid, setClick } = props;
 
-
     const handleReset = () => {
         setStart(null);
         setEnd(null);
@@ -10,7 +9,6 @@ const GridButtons = (props) => {
         setClick(1);
       }
       
-
     return (
         <div>
             <button onClick={handleReset}>Reset</button>
