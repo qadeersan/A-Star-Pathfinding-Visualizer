@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import GridInterface from './fe-Grid/gridInterface';
+import GridInterface from './grid-ui/gridInterface';
 
 function App() {
   return (
