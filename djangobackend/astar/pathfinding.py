@@ -4,7 +4,7 @@ def heuristic(i1, j1, i2, j2):
 def get_neighbours(i,j, barriers, neighbours):
     if i < 100 and [i+1,j] not in barriers:  #DOWN
         neighbours.append([i+1,j])
-    if i >= 0 and j < 100 and [i-1,j] not in barriers:  #UP
+    if i >= 0 and [i-1,j] not in barriers:  #UP
         neighbours.append([i+1,j])
     if j < 100 and [i,j+1] not in barriers:  #RIGHT
         neighbours.append([i+1,j])
