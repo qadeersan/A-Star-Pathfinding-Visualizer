@@ -12,14 +12,11 @@ const GridButtons = (props) => {
       }
 
       const handleSubmit = async () => {
-        // Prepare the data to send to the backend
         const data = {
             start: start,
             end: end,
             barriers: barriers
         }
-    
-        // Send a POST request to the backend
         try {
             const response = await axios.post('/api/pathfinding/', data);
             console.log(response.data);

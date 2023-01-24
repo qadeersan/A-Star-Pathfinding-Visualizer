@@ -51,6 +51,8 @@ const GridInterface = (props) => {
             default:
                 setBarriers([...barriers, [i, j]]);
                 newColor = "black";
+                console.log(start, end, barriers, "!");
+
         }
 
         const newGrid = [...grid];
@@ -59,22 +61,10 @@ const GridInterface = (props) => {
         setClick(click + 1);
     }
 
-    const handleSubmit = async() => {
-        const data = {start: start, end: end, barriers: barriers};
-        const options = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        };
-        const response = await fetch('/path/to/your/endpoint', options);
-        const json = await response.json();
-        console.log(json);
-    }
-
     return (
         <span className='grid-component'>
         <div className="grid-container">
-            <GridButtons setStart={setStart} setEnd={setEnd} setBarriers={setBarriers} setClick={setClick} setGrid={setGrid} />
+            <GridButtons start={start} end={end} barriers={barriers} setStart={setStart} setEnd={setEnd} setBarriers={setBarriers} setClick={setClick} setGrid={setGrid} />
             <table>
                 <tbody>
                 {grid.map((row, i) => (
