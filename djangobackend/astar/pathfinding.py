@@ -11,3 +11,22 @@ def get_neighbours(i,j, barriers, neighbours):
     if j >= 0 and [i,j-1] not in barriers:  #LEFT
         neighbours.append([i,j-1])
 
+def astar_main():
+    # Create heap to organize objects from lowest f score to greatest
+    # Push start node onto list
+
+    # Node will contain prior node in path in object data
+    
+    # Initialize start nodes f score to heuristic to estimate distance to end, g score 0
+
+    # Initialize all other g scores and f scores to infinity
+
+    # Create set to track everything in heapq
+
+    # Start at start node
+
+    # Loop through neighbours of curr node
+        # if currently defined g score coming from current node is less then 
+        # the neighbours current node then update the prior node to current
+
+        
